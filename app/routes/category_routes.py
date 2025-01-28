@@ -8,8 +8,8 @@ router = APIRouter(prefix='/category', tags=['Category'])
 
 @router.post('/add')
 def add_category(
-        category: Category,
-        db_session: Session = Depends(get_db_session)
+    category: Category,
+    db_session: Session = Depends(get_db_session)
 ):
     uc = CategoryUseCase(db_session)
     uc.add_category(category=category)
