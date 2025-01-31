@@ -9,7 +9,7 @@ def serialize_category(category_model: CategoryModel):
     return CategoryOutput(**category_model.__dict__)
 
 
-class CategoryUseCase:
+class CategoryUseCases:
     def __init__(self, db_session: Session):
         self.db_session = db_session
 

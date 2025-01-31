@@ -1,11 +1,11 @@
 import pytest
-from app.use_cases.category import CategoryUseCase
+from app.use_cases.category import CategoryUseCases
 from app.db.models import Category as CategoryModel
 from app.schemas.category import Category, CategoryOutput
 from fastapi.exceptions import HTTPException
 
 def test_add_category_uc(db_session):
-    uc = CategoryUseCase(db_session)
+    uc = CategoryUseCases(db_session)
 
     category = Category(
         name= 'Clothe',
@@ -23,7 +23,7 @@ def test_add_category_uc(db_session):
     db_session.commit()
 
 def test_list_categories(db_session, categories_on_db):
-    uc = CategoryUseCase(db_session=db_session)
+    uc = CategoryUseCases(db_session=db_session)
 
     categories = uc.list_categories()
 
@@ -39,7 +39,7 @@ def test_delete_category(db_session):
     db_session.add(category_model)
     db_session.commit()
 
-    uc = CategoryUseCase(db_session=db_session)
+    uc = CategoryUseCases(db_session=db_session)
     uc.delete_category(id=category_model.id)
 
     category_model = db_session.query(CategoryModel).first()
@@ -47,6 +47,6 @@ def test_delete_category(db_session):
 
 
 def test_delete_category_non_exist(db_session):
-    uc = CategoryUseCase(db_session=db_session)
+    uc = CategoryUseCases(db_session=db_session)
     with pytest.raises(HTTPException):
         uc.delete_category(id=1)
