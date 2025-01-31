@@ -1,5 +1,4 @@
-from datetime import datetime
-from sqlalchemy import  Column, Integer, String, ForeignKey, DateTime, Float
+from sqlalchemy import  Column, Integer, String, ForeignKey, DateTime, Float, func
 from sqlalchemy.orm import relationship
 from app.db.base import Base
 
@@ -20,8 +19,8 @@ class Product(Base):
     slug = Column('slug', String, nullable=False)
     price = Column('price', Float)
     stock = Column('stock', Integer)
-    created_at = Column('created_at', DateTime, server_default=datetime.now().isoformat())
-    updated_at = Column('updated_at', DateTime, onupdate=datetime.now())
+    created_at = Column('created_at', DateTime, server_default=func.now())
+    updated_at = Column('updated_at', DateTime, onupdate=func.now())
     category_id = Column('category_id', ForeignKey('categories.id'), nullable=False)
     category = relationship('Category', back_populates='products')
 
